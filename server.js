@@ -15,5 +15,14 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
 	connections.push(socket);
-	console.log('Connected: %s sockets connected')
-})
+	console.log('Connected: %s sockets connected');
+	socket.on('disconnect', function(data){
+		connections.splice(connections.indexOf(socket), 1);
+		console.log('Disconnected: %s sockets disconnected', connections.length);	
+	});
+
+	socket.on('send message', function(data){
+		console.log(data);
+		io.emit('new message', {msg: data});
+	});
+});
