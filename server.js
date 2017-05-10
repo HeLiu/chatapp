@@ -39,3 +39,5 @@ io.on('connection', function(socket){
 		io.emit('get users', users);
 	}
 });
+
+//server.listen(port);
